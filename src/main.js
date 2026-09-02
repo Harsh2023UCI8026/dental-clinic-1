@@ -26,7 +26,7 @@ document.querySelector('#app').innerHTML = `
         </div>
       </a>
 
-      <ul class="nav-links">
+      <ul class="nav-links" id="mobileNavMenu">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About Dentist</a></li>
         <li><a href="#treatments">Treatments & Cost</a></li>
@@ -36,8 +36,11 @@ document.querySelector('#app').innerHTML = `
       </ul>
 
       <div style="display: flex; gap: 12px; align-items: center;">
-        <button class="btn-teal-primary open-booking-modal">
-          <i class="fa-solid fa-calendar-check"></i> Book Appointment
+        <button class="btn-teal-primary open-booking-modal" style="padding: 10px 18px; font-size: 0.85rem;">
+          <i class="fa-solid fa-calendar-check"></i> <span class="nav-btn-text">Book Appointment</span>
+        </button>
+        <button id="mobileMenuToggle" class="mobile-hamburger-btn" title="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
         </button>
       </div>
     </div>
@@ -484,6 +487,20 @@ document.querySelector('#app').innerHTML = `
 document.addEventListener('DOMContentLoaded', () => {
   const sdModal = document.getElementById('sdModal');
   const closeSdModal = document.getElementById('closeSdModal');
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const mobileNavMenu = document.getElementById('mobileNavMenu');
+
+  if (mobileMenuToggle && mobileNavMenu) {
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileNavMenu.classList.toggle('active');
+    });
+
+    mobileNavMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNavMenu.classList.remove('active');
+      });
+    });
+  }
 
   document.querySelectorAll('.open-booking-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {

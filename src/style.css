@@ -649,23 +649,174 @@ body {
   margin-bottom: 12px;
 }
 
-.why-desc {
-  color: var(--slate-subtle);
-  font-size: 0.95rem;
-  line-height: 1.6;
+.mobile-hamburger-btn {
+  display: none;
+  background: var(--navy-dark);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 
+/* 100% Mobile & Tablet Responsive Rules */
 @media (max-width: 992px) {
-  .rich-hero-grid {
-    grid-template-columns: 1fr;
+  .top-notice-bar {
+    font-size: 0.75rem;
+    padding: 8px 16px;
   }
+  
+  .top-notice-bar .container {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .navbar .container {
+    height: 72px;
+  }
+
+  .logo-text-title {
+    font-size: 1.2rem;
+  }
+
+  .logo-text-sub {
+    font-size: 0.65rem;
+  }
+
+  .logo-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .mobile-hamburger-btn {
+    display: flex;
+  }
+
   .nav-links {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-bottom: 2px solid var(--teal-primary);
     display: none;
   }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .rich-hero {
+    padding: 40px 0 60px;
+  }
+
+  .rich-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
   .rich-hero-h1 {
-    font-size: 2.4rem;
+    font-size: 2.1rem;
+    line-height: 1.25;
+  }
+
+  .rich-hero-p {
+    font-size: 1rem;
+  }
+
+  .hero-visual-img {
+    height: 320px;
+  }
+
+  .hero-visual-floating-badge {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 12px;
+  }
+
+  .rich-section {
+    padding: 50px 0;
+  }
+
+  .rich-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .cards-grid, .why-choose-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Doctor About Section Mobile Stack */
+  #about .container > div {
+    grid-template-columns: 1fr !important;
+    padding: 24px !important;
+  }
+
+  /* Chatbot Window Fullscreen on Mobile */
+  .sd-chatbot-window {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+  }
+
+  /* Side Dock Floating Compact Mobile adjustments */
+  .sd-side-dock {
+    top: auto;
+    bottom: 90px;
+    transform: none;
+    border-radius: 12px 0 0 12px;
+  }
+
+  .sd-dock-link {
+    padding: 10px 10px;
+    font-size: 0.65rem;
+  }
+
+  .cost-estimator-card {
+    padding: 20px;
+  }
+
+  .estimator-result-box {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
   }
 }
+
+@media (max-width: 576px) {
+  .nav-btn-text {
+    display: none;
+  }
+
+  .btn-teal-primary {
+    padding: 12px 20px;
+    font-size: 0.85rem;
+  }
+
+  .rich-hero-h1 {
+    font-size: 1.8rem;
+  }
+}
+
 
 
 
