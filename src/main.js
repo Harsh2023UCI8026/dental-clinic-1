@@ -7,10 +7,21 @@ document.querySelector('#app').innerHTML = `
       <div>
         <i class="fa-solid fa-location-dot" style="color: var(--teal-primary)"></i> <strong>Floss & Gloss Clinic:</strong> 130-First Floor, Orchid Sky, Shela, Ahmedabad | <i class="fa-solid fa-phone"></i> Direct Call: <a href="tel:+919104591919" style="color: var(--cyan-accent);">+91 91045 91919</a>
       </div>
-      <div>
+      <div style="display: flex; align-items: center; gap: 14px;">
         <span style="background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-weight: 600;">
           <i class="fa-solid fa-clock"></i> Mon - Sat: 10 AM - 8 PM
         </span>
+        <!-- Global Website Language Selector -->
+        <div class="global-lang-picker">
+          <i class="fa-solid fa-globe" style="color: var(--cyan-accent);"></i>
+          <select id="globalSiteLanguageSelect" class="global-lang-select" title="Change Website Language">
+            <option value="en">English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+            <option value="gu">ગુજરાતી (Gujarati)</option>
+            <option value="amdavad">અમદાવાદી (Shela Regional)</option>
+            <option value="hinglish">Hinglish</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
@@ -411,37 +422,60 @@ document.querySelector('#app').innerHTML = `
     </a>
   </div>
 
-  <!-- Animated Chatbot Widget -->
-  <button id="sdChatbotTrigger" class="sd-chatbot-trigger">
-    <i class="fa-solid fa-comments"></i>
-  </button>
+  <!-- blackNgreen Style Organic Animated Chatbot Trigger Avatar -->
+  <div id="sdChatbotTrigger" class="bng-chatbot-blob-trigger" title="Chat with AI Assistant">
+    <div class="bng-blob-pulse-ring"></div>
+    <div class="bng-blob-pulse-ring delay"></div>
+    <div class="bng-blob-shape">
+      <img src="/dr-archana.jpg" alt="Dr. Archana AI Assistant" class="bng-avatar-img" />
+    </div>
+    <div class="bng-online-badge"></div>
+  </div>
 
+  <!-- blackNgreen Style Floating AI Assistant Chat Window Modal -->
   <div id="sdChatbotWindow" class="sd-chatbot-window" style="display: none;">
-    <div class="sd-chat-header">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <img src="/dr-archana.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+    <div class="sd-chat-header bng-chat-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="bng-header-blob-avatar">
+          <img src="/dr-archana.jpg" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
         <div>
-          <div style="font-weight: 800; font-size: 0.95rem;">Dr. Archana Assistant</div>
-          <div style="font-size: 0.75rem; color: #cbd5e1;">Floss & Gloss Clinic</div>
+          <div style="font-weight: 800; font-size: 0.95rem; color: #ffffff;">Dr. Archana AI Assistant</div>
+          <div style="font-size: 0.72rem; color: #a7f3d0; display: flex; align-items: center; gap: 5px;">
+            <span style="width: 7px; height: 7px; background: #34d399; border-radius: 50%; display: inline-block;"></span> Online | Floss & Gloss
+          </div>
         </div>
       </div>
-      <button id="sdChatCloseBtn" style="background: transparent; border: none; color: white; font-size: 1.2rem; cursor: pointer;">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <!-- Language Selector Dropdown -->
+        <div class="bng-lang-picker-wrapper">
+          <i class="fa-solid fa-globe" style="color: #a7f3d0; font-size: 0.85rem;"></i>
+          <select id="chatLanguageSelect" class="bng-lang-select" title="Select Language">
+            <option value="en" selected>English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+            <option value="gu">ગુજરાતી (Gujarati)</option>
+            <option value="amdavad">અમદાવાદી (Shela Regional)</option>
+            <option value="hinglish">Hinglish</option>
+          </select>
+        </div>
+        <button id="sdChatCloseBtn" class="bng-chat-close-btn" title="Close Chat">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     </div>
 
     <div id="sdChatBody" class="sd-chat-body">
-      <div class="sd-msg bot chat-msg-animated delay-1">
+      <div class="sd-msg bot chat-msg-animated delay-1" id="botGreetMsg1">
         👋 <strong>Hi, I am Dr. Archana Mal!</strong><br/>
         Welcome to <strong>Floss & Gloss Dental Clinic</strong>!
       </div>
       <div class="chat-msg-animated delay-2" style="background: white; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm);">
         <img src="/patient-smile.jpg" style="width: 100%; height: 135px; object-fit: cover;" />
       </div>
-      <div class="sd-msg bot chat-msg-animated delay-3">
+      <div class="sd-msg bot chat-msg-animated delay-3" id="botGreetMsg2">
         ✨ <em>"Let your smile change the world!"</em><br/>
         How may I assist you today?
-        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;" id="chatOptionsContainer">
           <button class="sd-chat-btn" onclick="handleSdChat('Book Appointment')">📅 Book Consultation Slot</button>
           <button class="sd-chat-btn" onclick="handleSdChat('Dental Emergency / Pain')">🚨 Severe Tooth Pain / Emergency</button>
           <button class="sd-chat-btn" onclick="handleSdChat('Aligners & Invisalign')">✨ Clear Aligners & Braces Query</button>
@@ -483,12 +517,182 @@ document.querySelector('#app').innerHTML = `
   </div>
 `;
 
+// Multilingual Content Dictionaries
+const chatI18n = {
+  en: {
+    greet1: '👋 <strong>Hi, I am Dr. Archana Mal!</strong><br/>Welcome to <strong>Floss & Gloss Dental Clinic</strong>!',
+    greet2: '✨ <em>"Let your smile change the world!"</em><br/>How may I assist you today?',
+    placeholder: 'Type a message in English...',
+    options: [
+      { text: '📅 Book Consultation Slot', val: 'Book Appointment' },
+      { text: '🚨 Severe Tooth Pain / Emergency', val: 'Dental Emergency / Pain' },
+      { text: '✨ Clear Aligners & Braces Query', val: 'Aligners & Invisalign' },
+      { text: '🦷 Teeth Cleaning & Polishing', val: 'Teeth Cleaning & Whitening' },
+      { text: '🛡️ Implants & Tooth Replacement', val: 'Dental Implants & Dentures' },
+      { text: '📍 Directions to Orchid Sky Shela', val: 'Clinic Location Shela' }
+    ],
+    responses: {
+      file: '📄 <strong>File Received!</strong><br/>Dr. Archana’s team will review your attachment for preliminary evaluation.<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">Schedule Review Call</button>',
+      book: 'You can pick your preferred consultation slot now:<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">Open Slot Picker</button>',
+      pain: 'For urgent dental pain, please call Dr. Archana Mal directly: <a href="tel:+919104591919" style="color: var(--teal-primary); font-weight: 700;">+91 91045 91919</a>',
+      aligner: 'We offer certified Clear Aligners and Ceramic Braces. Initial 3D scanning is included in consultation.',
+      clean: 'Teeth Cleaning (Scaling & Polishing) removes plaque & stains for fresh breath. Duration: 30 mins.',
+      implant: 'Dental Implants provide permanent single/full-mouth tooth replacement with natural feel.',
+      location: 'Clinic Address: <strong>130-First Floor, Orchid Sky, Shela, Ahmedabad 380058</strong> (Opp. Applewoods).',
+      default: 'Thank you for reaching out! Dr. Archana’s team will assist you shortly.'
+    }
+  },
+  hi: {
+    greet1: '👋 <strong>नमस्ते! मैं डॉ. अर्चना मल हूँ।</strong><br/><strong>फ्लॉस एंड ग्लॉस डेंटल क्लिनिक</strong> में आपका स्वागत है!',
+    greet2: '✨ <em>"आपकी मुस्कान ही आपकी पहचान है!"</em><br/>आज मैं आपकी क्या सहायता कर सकती हूँ?',
+    placeholder: 'हिंदी में संदेश लिखें...',
+    options: [
+      { text: '📅 अपॉइंटमेंट बुक करें', val: 'Book Appointment' },
+      { text: '🚨 दांत में तेज़ दर्द / इमरजेंसी', val: 'Dental Emergency / Pain' },
+      { text: '✨ क्लेयर अलाइनर्स और ब्रेसेस की जानकारी', val: 'Aligners & Invisalign' },
+      { text: '🦷 दांतों की सफाई (Scaling)', val: 'Teeth Cleaning & Whitening' },
+      { text: '🛡️ डेंटल इम्प्लांट (नया दांत)', val: 'Dental Implants & Dentures' },
+      { text: '📍 क्लिनिक का पता (ऑर्किड स्काई, शेला)', val: 'Clinic Location Shela' }
+    ],
+    responses: {
+      file: '📄 <strong>फ़ाइल मिल गई!</strong><br/>डॉ. अर्चना की टीम जल्द आपकी रिपोर्ट देखकर संपर्क करेगी।<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">कॉल शेड्यूल करें</button>',
+      book: 'आप अपना पसंदीदा अपॉइंटमेंट समय चुनें:<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">अपॉइंटमेंट बुक करें</button>',
+      pain: 'तेज़ दांत दर्द के लिए सीधे डॉ. अर्चना से बात करें: <a href="tel:+919104591919" style="color: var(--teal-primary); font-weight: 700;">+91 91045 91919</a>',
+      aligner: 'हमारे यहाँ सर्टिफाइड क्लेयर अलाइनर्स (Invisalign) उपलब्ध हैं।',
+      clean: 'दांतों की सफाई से प्लाक और बदबू दूर होती है। समय: 30 मिनट।',
+      implant: 'डेंटल इम्प्लांट से स्थायी और प्राकृतिक दांत लगाए जाते हैं।',
+      location: 'पता: <strong>130-फर्स्ट फ्लोर, ऑर्किड स्काई, शेला, अहमदाबाद 380058</strong> (एप्पलवुड्स के सामने)।',
+      default: 'संपर्क करने के लिए धन्यवाद! हमारी टीम जल्द सहायता करेगी।'
+    }
+  },
+  gu: {
+    greet1: '👋 <strong>નમસ્તે! હું ડૉ. અર્ચના મલ છું.</strong><br/><strong>ફ્લોસ એન્ડ ગ્લોસ ડેન્ટલ ક્લિનિક</strong>માં આપનું સ્વાગત છે!',
+    greet2: '✨ <em>"તમારું સ્માઈલ જ તમારી ઓળખ છે!"</em><br/>આજે હું તમને કેવી રીતે મદદ કરી શકું?',
+    placeholder: 'ગુજરાતીમાં લખો...',
+    options: [
+      { text: '📅 એપોઇન્ટમેન્ટ બુક કરો', val: 'Book Appointment' },
+      { text: '🚨 દાંતમાં અસહ્ય દુખાવો / ઇમરજન્સી', val: 'Dental Emergency / Pain' },
+      { text: '✨ ક્લિયર અલાઈનર્સ અને બ્રેસિસ', val: 'Aligners & Invisalign' },
+      { text: '🦷 દાંતની સફાઈ અને પોલિશિંગ', val: 'Teeth Cleaning & Whitening' },
+      { text: '🛡️ ડેન્ટલ ઈમ્પ્લાન્ટ (નવો દાંત)', val: 'Dental Implants & Dentures' },
+      { text: '📍 ક્લિનિકનું સરનામું (ઓર્ચિડ સ્કાય, શેલા)', val: 'Clinic Location Shela' }
+    ],
+    responses: {
+      file: '📄 <strong>ફાઈલ મળી ગઈ!</strong><br/>ડૉ. અર્ચનાની ટીમ રિપોર્ટ ચકાસીને તુરંત સંપર્ક કરશે.<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">એપોઇન્ટમેન્ટ બુક કરો</button>',
+      book: 'તમારો અનુકૂળ સમય બુક કરો:<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">સ્લોટ પસંદ કરો</button>',
+      pain: 'ઇમરજન્સી દુખાવા માટે ડૉ. અર્ચનાનો સીધો સંપર્ક કરો: <a href="tel:+919104591919" style="color: var(--teal-primary); font-weight: 700;">+91 91045 91919</a>',
+      aligner: 'અમે ઈનવિઝિબલ અલાઈનર્સ અને કસ્ટમ બ્રેસિસની શ્રેષ્ઠ સારવાર આપીએ છીએ.',
+      clean: 'દાંતની સફાઈથી પેઢા મજબૂત થાય છે અને દુર્ગંધ દૂર થાય છે.',
+      implant: 'ડેન્ટલ ઈમ્પ્લાન્ટ એ કાયમી અને કુદરતી જેવા દાંત બેસાડવાની આધુનિક પદ્ધતિ છે.',
+      location: 'સરનામું: <strong>૧૩૦-પહેલો માળ, ઓર્ચિડ સ્કાય, શેલા, અમદાવાદ ૩૮૦૦૫૮</strong> (એપલવુડ્સ સામે).',
+      default: 'સંપર્ક કરવા બદલ આભાર! આપને તુરંત મદદ મળશે.'
+    }
+  },
+  amdavad: {
+    greet1: '👋 <strong>કેમ છો અમદાવાદ! હું ડૉ. અર્ચના મલ છું.</strong><br/>આપણા <strong>શેલા ઓર્ચિડ સ્કાય વાળા ક્લિનિક</strong>માં સ્વાગત છે!',
+    greet2: '✨ <em>"અમદાવાદી સ્માઈલ, સો ટકા ફાઈન!"</em><br/>બોલો શેલા-બોપલ વાળા આજે શું સેવા કરીયે?',
+    placeholder: 'અહીં અમદાવાદ સ્ટાઇલમાં ટાઇપ કરો...',
+    options: [
+      { text: '📅 શનિ-રવિ ફ્રી સ્લોટ બુક કરો', val: 'Book Appointment' },
+      { text: '🚨 દાંતનો સખત દુખાવો / ઇમરજન્સી', val: 'Dental Emergency / Pain' },
+      { text: '✨ અલાઈનર્સ વાયર વગર ના દાંત ચત્તા કરવા', val: 'Aligners & Invisalign' },
+      { text: '🦷 દાંતનો ક્ષાર સફાઈ (Skaling)', val: 'Teeth Cleaning & Whitening' },
+      { text: '🛡️ ઈમ્પ્લાન્ટ ચોકઠું / નવો ચોંટેલો દાંત', val: 'Dental Implants & Dentures' },
+      { text: '📍 શેલા એપલવુડ્સ સામે ઓર્ચિડ સ્કાય પહોંચો', val: 'Clinic Location Shela' }
+    ],
+    responses: {
+      file: '📄 <strong>રિપોર્ટ આવી ગયો ભાઈ!</strong><br/>ડૉ. અર્ચના મેડમ જોઈને તુરંત તમને કોલ કરાવશે.<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">કોલ બુક કરો</button>',
+      book: 'એકદમ ઝીરો વેટિંગ વારો! સ્લોટ સિલેક્ટ કરી લો:<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">સ્લોટ કન્ફર્મ કરો</button>',
+      pain: 'દુખાવો ચાલુ હોય તો ટાઈમ બગાડ્યા વગર ડાયરેક્ટ રિંગ મારો: <a href="tel:+919104591919" style="color: var(--teal-primary); font-weight: 700;">+91 91045 91919</a>',
+      aligner: 'તદ્દન અદ્રશ્ય અલાઈનર્સ છે, કોઈને ખબર પણ ના પડે એવી ટેકનોલોજી છે શેલામાં!',
+      clean: 'દાંત ચમકાવવા અને મોઢાની દુર્ગંધ કાઢવા ૩૦ મિનિટમાં સ્કેલિંગ થઈ જશે.',
+      implant: 'ઈમ્પ્લાન્ટ કાયમી ફિટ થઈ જશે, ઓરિજિનલ દાંત જેવું જ ફિલિંગ આવશે.',
+      location: 'સરનામું સાંભળો: <strong>૧૩૦-ફર્સ્ટ ફ્લોર, ઓર્ચિડ સ્કાય, શેલા, અમદાવાદ ૩૮૦૦૫૮</strong> (એપલવુડ્સની બિલકુલ સામે).',
+      default: 'મસેજ મળ્યો છે! ડૉ. અર્ચનાની ટીમ તુરંત મદદ કરશે.'
+    }
+  },
+  hinglish: {
+    greet1: '👋 <strong>Hey! Main Dr. Archana Mal hoon.</strong><br/>Welcome to <strong>Floss & Gloss Dental Clinic</strong>!',
+    greet2: '✨ <em>"Keep smiling always!"</em><br/>Aaj main aapki kya help kar sakti hoon?',
+    placeholder: 'Hinglish mein message karein...',
+    options: [
+      { text: '📅 Book Consultation Slot', val: 'Book Appointment' },
+      { text: '🚨 Toothache / Pain Emergency', val: 'Dental Emergency / Pain' },
+      { text: '✨ Invisible Clear Aligners Query', val: 'Aligners & Invisalign' },
+      { text: '🦷 Teeth Cleaning & Polishing', val: 'Teeth Cleaning & Whitening' },
+      { text: '🛡️ Dental Implants (Permanent Tooth)', val: 'Dental Implants & Dentures' },
+      { text: '📍 Clinic Location (Orchid Sky Shela)', val: 'Clinic Location Shela' }
+    ],
+    responses: {
+      file: '📄 <strong>File received!</strong><br/>Dr. Archana’s team will check your report and get back soon.<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">Book Call</button>',
+      book: 'Aap apna preferred consultation slot pick kar sakte hain:<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">Select Slot</button>',
+      pain: 'Severe tooth pain ke liye Dr. Archana ko direct call karein: <a href="tel:+919104591919" style="color: var(--teal-primary); font-weight: 700;">+91 91045 91919</a>',
+      aligner: 'Without wire pricks, invisible clear aligners available hain.',
+      clean: 'Scaling & polishing se tartar and bad breath instant door ho jata hai.',
+      implant: 'Permanent titanium implant looks & feels just like natural tooth.',
+      location: 'Address: <strong>130-First Floor, Orchid Sky, Shela, Ahmedabad 380058</strong> (Opp. Applewoods).',
+      default: 'Message mil gaya hai! Humari team aapse jald connect karegi.'
+    }
+  }
+};
+
+let currentLang = 'en';
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
   const sdModal = document.getElementById('sdModal');
   const closeSdModal = document.getElementById('closeSdModal');
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
   const mobileNavMenu = document.getElementById('mobileNavMenu');
+  const chatLanguageSelect = document.getElementById('chatLanguageSelect');
+  const globalSiteLanguageSelect = document.getElementById('globalSiteLanguageSelect');
+
+  function syncAllLanguageSelectors(lang) {
+    currentLang = lang;
+    if (chatLanguageSelect) chatLanguageSelect.value = lang;
+    if (globalSiteLanguageSelect) globalSiteLanguageSelect.value = lang;
+
+    // Update Chatbot i18n UI
+    updateChatLanguageUI(lang);
+
+    // Trigger Google Translate engine for whole site DOM translation
+    const googleLangMap = {
+      en: 'en',
+      hi: 'hi',
+      gu: 'gu',
+      amdavad: 'gu',
+      hinglish: 'hi'
+    };
+    const targetGoogleLang = googleLangMap[lang] || 'en';
+
+    // 1. Direct goog-te-combo select update
+    const iframeSelect = document.querySelector('.goog-te-combo');
+    if (iframeSelect) {
+      iframeSelect.value = targetGoogleLang;
+      iframeSelect.dispatchEvent(new Event('change'));
+    }
+
+    // 2. Cookie fallback method for Google Translate Engine
+    document.cookie = `googtrans=/en/${targetGoogleLang}; path=/; domain=${window.location.hostname}`;
+    document.cookie = `googtrans=/en/${targetGoogleLang}; path=/`;
+
+    // 3. Fallback DOM Text Translation Engine for local elements
+    if (window.translateWholeSiteDOM) {
+      window.translateWholeSiteDOM(lang);
+    }
+  }
+
+  if (chatLanguageSelect) {
+    chatLanguageSelect.addEventListener('change', (e) => {
+      syncAllLanguageSelectors(e.target.value);
+    });
+  }
+
+  if (globalSiteLanguageSelect) {
+    globalSiteLanguageSelect.addEventListener('change', (e) => {
+      syncAllLanguageSelectors(e.target.value);
+    });
+  }
 
   if (mobileMenuToggle && mobileNavMenu) {
     mobileMenuToggle.addEventListener('click', () => {
@@ -599,13 +803,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-window.handleSdChat = function(option) {
+function updateChatLanguageUI(lang) {
+  const dict = chatI18n[lang] || chatI18n.en;
+  const botGreetMsg1 = document.getElementById('botGreetMsg1');
+  const botGreetMsg2 = document.getElementById('botGreetMsg2');
+  const chatInputText = document.getElementById('chatInputText');
+  const chatOptionsContainer = document.getElementById('chatOptionsContainer');
+
+  if (botGreetMsg1) botGreetMsg1.innerHTML = dict.greet1;
+  if (botGreetMsg2) {
+    botGreetMsg2.childNodes[0].nodeValue = ''; // Clear default leading text
+    botGreetMsg2.innerHTML = dict.greet2 + '<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;" id="chatOptionsContainer"></div>';
+  }
+
+  if (chatInputText) chatInputText.placeholder = dict.placeholder;
+
+  const container = document.getElementById('chatOptionsContainer');
+  if (container) {
+    container.innerHTML = '';
+    dict.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'sd-chat-btn';
+      btn.innerText = opt.text;
+      btn.onclick = () => window.handleSdChat(opt.val, opt.text);
+      container.appendChild(btn);
+    });
+  }
+}
+
+window.handleSdChat = function(optionKey, displayText) {
   const chatBody = document.getElementById('sdChatBody');
+  const dict = chatI18n[currentLang] || chatI18n.en;
 
   // Animated User Message
   const userMsg = document.createElement('div');
   userMsg.className = 'sd-msg user chat-msg-animated';
-  userMsg.innerText = option;
+  userMsg.innerText = displayText || optionKey;
   chatBody.appendChild(userMsg);
 
   // Animated Typing Indicator
@@ -621,25 +854,28 @@ window.handleSdChat = function(option) {
     const botMsg = document.createElement('div');
     botMsg.className = 'sd-msg bot chat-msg-animated';
 
-    const lower = option.toLowerCase();
+    const lower = optionKey.toLowerCase();
+    let reply = '';
+
     if (lower.includes('attached file')) {
-      botMsg.innerHTML = `📄 <strong>File Received!</strong><br/>Dr. Archana’s team will review your attachment for preliminary evaluation.<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">Schedule Review Call</button>`;
+      reply = dict.responses.file;
     } else if (lower.includes('appointment') || lower.includes('book') || lower.includes('slot')) {
-      botMsg.innerHTML = 'You can pick your preferred consultation slot now:<br/><br/><button class="btn-teal-primary open-booking-modal" style="padding: 8px 16px; font-size: 0.85rem;">Open Slot Picker</button>';
+      reply = dict.responses.book;
     } else if (lower.includes('pain') || lower.includes('emergency') || lower.includes('toothache')) {
-      botMsg.innerHTML = 'For urgent dental pain, please call Dr. Archana Mal directly: <a href="tel:+919104591919" style="color: var(--teal-primary); font-weight: 700;">+91 91045 91919</a>';
+      reply = dict.responses.pain;
     } else if (lower.includes('aligner') || lower.includes('braces') || lower.includes('invisalign')) {
-      botMsg.innerHTML = 'We offer certified Clear Aligners and Ceramic Braces. Initial 3D scanning is included in consultation.';
+      reply = dict.responses.aligner;
     } else if (lower.includes('cleaning') || lower.includes('whitening') || lower.includes('polishing')) {
-      botMsg.innerHTML = 'Teeth Cleaning (Scaling & Polishing) removes plaque & stains for fresh breath. Duration: 30 mins.';
+      reply = dict.responses.clean;
     } else if (lower.includes('implant') || lower.includes('denture') || lower.includes('replacement')) {
-      botMsg.innerHTML = 'Dental Implants provide permanent single/full-mouth tooth replacement with natural feel.';
+      reply = dict.responses.implant;
     } else if (lower.includes('location') || lower.includes('where') || lower.includes('address') || lower.includes('shela')) {
-      botMsg.innerHTML = 'Clinic Address: <strong>130-First Floor, Orchid Sky, Shela, Ahmedabad 380058</strong> (Opp. Applewoods).';
+      reply = dict.responses.location;
     } else {
-      botMsg.innerHTML = `Thank you for reaching out! Dr. Archana’s team will assist you with "${option}". Would you like to book a consultation?`;
+      reply = dict.responses.default;
     }
-    
+
+    botMsg.innerHTML = reply;
     chatBody.appendChild(botMsg);
     chatBody.scrollTop = chatBody.scrollHeight;
 
@@ -650,3 +886,110 @@ window.handleSdChat = function(option) {
     });
   }, 700);
 };
+
+// Full Website Instant DOM Text Translation Dictionary & Engine
+const siteDomTranslations = {
+  hi: {
+    navLinks: ['होम', 'डेंटिस्ट के बारे में', 'इलाज और खर्च', 'स्टेरिलाइजेशन', 'ओरल हेल्थ हब', 'संपर्क'],
+    heroH1: 'अपनी मुस्कान और <span>आत्मविश्वास वापस पाएं</span>',
+    heroP: '<strong>डॉ. अर्चना मल (M.D.S. पीरियडोंटिक्स)</strong> द्वारा 17+ वर्षों का अनुभव। 100% बायो-स्टेरिलाइजेशन एवं ज़ीरो वेटिंग टाइम।',
+    heroBadge: '<i class="fa-solid fa-award"></i> शेला - बोपल में प्रमुख पीरियडोंटिस्ट और इम्प्लांटोलॉजिस्ट',
+    bookConsultBtn: '<i class="fa-solid fa-calendar-plus"></i> मुफ़्त परामर्श बुक करें',
+    chatBtn: '<i class="fa-solid fa-comments"></i> AI असिस्टेंट से बात करें',
+    aboutH2: 'डॉ. अर्चना मल से मिलें',
+    aboutSub: 'संस्थापक और वरिष्ठ दंत चिकित्सक - फ्लॉस एंड ग्लॉस क्लिनिक',
+    whyTitle: 'आप फ्लॉस एंड ग्लॉस डेंटल क्लिनिक क्यों चुनें?',
+    whyDesc: 'शेला - बोपल में नैतिक निदान, आराम और उन्नत तकनीक के साथ विश्व स्तरीय दंत चिकित्सा सेवा।'
+  },
+  gu: {
+    navLinks: ['હોમ', 'ડૉક્ટર વિશે', 'સારવાર અને ખર્ચ', 'સ્ટેરિલાઇઝેશન', 'ઓરલ હેલ્થ હબ', 'સંપર્ક'],
+    heroH1: 'તમારું સ્માઈલ અને <span>આત્મવિશ્વાસ પુનઃપ્રાપ્ત કરો</span>',
+    heroP: '<strong>ડૉ. અર્ચના મલ (M.D.S. પિરિઓડોન્ટિક્સ)</strong> દ્વારા ૧૭+ વર્ષનો અનુભવ. ૧૦૦% ઓટોક્લેવ હાઇજીન અને ઝીરો વેઇટિંગ ટાઇમ.',
+    heroBadge: '<i class="fa-solid fa-award"></i> શેલા - બોપલના નિષ્ણાત ડેન્ટલ સર્જન',
+    bookConsultBtn: '<i class="fa-solid fa-calendar-plus"></i> ફ્રી કન્સલ્ટેશન બુક કરો',
+    chatBtn: '<i class="fa-solid fa-comments"></i> AI આસિસ્ટન્ટ સાથે વાત કરો',
+    aboutH2: 'મળો ડૉ. અર્ચના મલ ને',
+    aboutSub: 'સ્થાપક અને વરિષ્ઠ ડેન્ટિસ્ટ - ફ્લોસ એન્ડ ગ્લોસ ડેન્ટલ ક્લિનિક',
+    whyTitle: 'શા માટે ફ્લોસ એન્ડ ગ્લોસ ડેન્ટલ ક્લિનિક પસંદ કરવું?',
+    whyDesc: 'શેલા - બોપલમાં શ્રેષ્ઠ નિદાન, આરામ અને આધુનિક ટેકનોલોજી સાથે સારવાર.'
+  },
+  amdavad: {
+    navLinks: ['હોમ', 'ડૉક્ટર વિશે', 'સારવાર ને ભાવ', 'સ્ટેરિલાઇઝેશન', 'હેલ્થ ગાઈડ', 'સંપર્ક'],
+    heroH1: 'અમદાવાદી રોકડા સ્માઈલ સાથે <span>કોન્ફિડન્સ લાવો</span>',
+    heroP: '<strong>ડૉ. અર્ચના મલ (M.D.S.)</strong> નો ૧૭+ વર્ષનો અનુભવ. શેલા ઓર્ચિડ સ્કાયમાં ઝીરો વેટિંગ વારો!',
+    heroBadge: '<i class="fa-solid fa-award"></i> શેલા - બોપલ વાળા ના ફેવરિટ ડેન્ટિસ્ટ',
+    bookConsultBtn: '<i class="fa-solid fa-calendar-plus"></i> ફ્રી સ્લોટ બુક કરો',
+    chatBtn: '<i class="fa-solid fa-comments"></i> AI આસિસ્ટન્ટ જોડે વાત કરો',
+    aboutH2: 'મળો આપણા ડૉ. અર્ચના મેડમને',
+    aboutSub: 'મુખ્ય ડેન્ટલ સ્પેશિયાલિસ્ટ - ઓર્ચિડ સ્કાય શેલા',
+    whyTitle: 'શેલા માં આપણું ફ્લોસ એન્ડ ગ્લોસ જ કેમ?',
+    whyDesc: 'ચોક્કસ નિદાન, સંપૂર્ણ સ્વચ્છતા અને ૧૦૦% આરામદાયક સારવાર શેલા ઓર્ચિડ સ્કાયમાં.'
+  },
+  hinglish: {
+    navLinks: ['Home', 'About Doctor', 'Treatments & Cost', 'Sterilization', 'Oral Health Hub', 'Contact'],
+    heroH1: 'Reclaim Your Confidence With a <span>Million-Dollar Smile</span>',
+    heroP: 'Certified dental care by <strong>Dr. Archana Mal (M.D.S. Periodontics)</strong> with 17+ years experience. 100% Sterilization & Zero Waiting Time.',
+    heroBadge: '<i class="fa-solid fa-award"></i> Premier Periodontist & Implantologist in Shela - Bopal',
+    bookConsultBtn: '<i class="fa-solid fa-calendar-plus"></i> Book Free Consultation',
+    chatBtn: '<i class="fa-solid fa-comments"></i> Chat with AI Assistant',
+    aboutH2: 'Meet Dr. Archana Mal',
+    aboutSub: 'Founder & Senior Dentist at Floss & Gloss Dental Clinic',
+    whyTitle: 'Why Should You Choose Floss & Gloss Dental Clinic?',
+    whyDesc: 'Delivering world-class dental care with ethical diagnosis and advanced technology in Shela - Bopal.'
+  },
+  en: {
+    navLinks: ['Home', 'About Dentist', 'Treatments & Cost', 'Sterilization', 'Oral Health Hub', 'Contact'],
+    heroH1: 'Reclaim Your Confidence With a <span>Million-Dollar Smile</span>',
+    heroP: 'Certified dental care by <strong>Dr. Archana Mal (M.D.S. Periodontics)</strong> with 17+ years experience. 100% Autoclave Sterilization & Zero Waiting Time for booked slots.',
+    heroBadge: '<i class="fa-solid fa-award"></i> Premier Periodontist & Implantologist in Shela - Bopal',
+    bookConsultBtn: '<i class="fa-solid fa-calendar-plus"></i> Book Free Consultation',
+    chatBtn: '<i class="fa-solid fa-comments"></i> Chat with AI Assistant',
+    aboutH2: 'Meet Dr. Archana Mal',
+    aboutSub: 'Founder & Senior Dentist at Floss & Gloss Dental Clinic',
+    whyTitle: 'Why Should You Choose Floss & Gloss Dental Clinic?',
+    whyDesc: 'Delivering world-class dental care with ethical diagnosis, comfort, and advanced technology in Shela - Bopal.'
+  }
+};
+
+window.translateWholeSiteDOM = function(lang) {
+  const data = siteDomTranslations[lang] || siteDomTranslations.en;
+
+  // 1. Navigation links
+  const navAnchors = document.querySelectorAll('#mobileNavMenu li a');
+  if (navAnchors && navAnchors.length >= 6) {
+    navAnchors.forEach((a, i) => {
+      if (data.navLinks[i]) a.innerText = data.navLinks[i];
+    });
+  }
+
+  // 2. Hero Section
+  const heroBadge = document.querySelector('.hero-pill-badge');
+  if (heroBadge) heroBadge.innerHTML = data.heroBadge;
+
+  const heroH1 = document.querySelector('.rich-hero-h1');
+  if (heroH1) heroH1.innerHTML = data.heroH1;
+
+  const heroP = document.querySelector('.rich-hero-p');
+  if (heroP) heroP.innerHTML = data.heroP;
+
+  const bookBtn = document.querySelector('.rich-hero .btn-teal-primary');
+  if (bookBtn) bookBtn.innerHTML = data.bookConsultBtn;
+
+  const chatBtn = document.getElementById('heroChatbotBtn');
+  if (chatBtn) chatBtn.innerHTML = data.chatBtn;
+
+  // 3. About Section Headings
+  const aboutH2 = document.querySelector('#about .rich-title h2');
+  if (aboutH2) aboutH2.innerText = data.aboutH2;
+
+  const aboutSub = document.querySelector('#about .rich-title p');
+  if (aboutSub) aboutSub.innerText = data.aboutSub;
+
+  // 4. Why Choose Us Headings
+  const whyTitles = document.querySelectorAll('.rich-section .rich-title h2');
+  if (whyTitles && whyTitles[1]) whyTitles[1].innerText = data.whyTitle;
+
+  const whyDescs = document.querySelectorAll('.rich-section .rich-title p');
+  if (whyDescs && whyDescs[1]) whyDescs[1].innerText = data.whyDesc;
+};
+
